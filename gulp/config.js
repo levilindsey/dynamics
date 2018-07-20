@@ -44,12 +44,12 @@ config.deviceIconsSrc = `${config.resPath}/images/device-icons/*`;
 
 // TODO: these source arrays need to be manually kept up-to-date with the front-end libraries that are used in this app
 config.vendorScriptsSrc = [
-  `${config.nodeModulesPath}/dat.gui/dat.gui.min.js`,
+  `${config.nodeModulesPath}/dat.gui/build/dat.gui.min.js`,
   `${config.nodeModulesPath}/gl-matrix/dist/gl-matrix-min.js`
 ];
 config.vendorScriptsMinSrc = [
   `${config.nodeModulesPath}/gl-matrix/dist/gl-matrix-min.js`,
-  `${config.nodeModulesPath}/dat.gui/dat.gui.min.js`
+  `${config.nodeModulesPath}/dat.gui/build/dat.gui.min.js`
 ];
 config.vendorStylesSrc = [];
 config.vendorStylesMinSrc = [];
