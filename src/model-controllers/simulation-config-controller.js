@@ -1,4 +1,4 @@
-import {ModelGroupController} from '../../../gamex';
+import {ModelGroupController} from 'gamex';
 
 /**
  * This class defines some shared simulation behavior.

@@ -5,7 +5,7 @@
 
 // TODO: Tie this into the folder-config system.
 
-import {degToRad} from '../../../../gamex';
+import {degToRad} from 'gamex';
 
 const cameraConfig = {};
 

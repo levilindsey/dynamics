@@ -2,7 +2,7 @@ import {
   configController,
   findIntersectingCollidablesForCollidable,
   randomVec3InRange,
-} from '../../../../gamex';
+} from 'gamex';
 
 import {SimulationConfigController} from '../simulation-config-controller';
 

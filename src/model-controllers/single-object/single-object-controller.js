@@ -4,7 +4,7 @@ import {
   applyLinearDrag,
   CollidablePhysicsModelController,
   pickRandom,
-} from '../../../../gamex';
+} from 'gamex';
 
 import {
   boxConfig,

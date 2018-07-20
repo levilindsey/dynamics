@@ -1,4 +1,4 @@
-import {GameController, PhysicsEngine} from '../../gamex';
+import {GameController, PhysicsEngine} from 'gamex';
 import {physicsConfig} from './config';
 import {SceneImpl} from './model-controllers/scene/scene-impl';
 import {generalModelProgramWrapperConfig} from './programs';

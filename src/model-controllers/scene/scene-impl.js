@@ -4,7 +4,7 @@ import {
   GameScene,
   WallController,
 }
-from '../../../../gamex';
+from 'gamex';
 
 import { sceneConfig } from './scene-config';
 import {

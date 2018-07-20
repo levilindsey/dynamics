@@ -1,7 +1,7 @@
 import {
   configController,
   findIntersectingCollidablesForCollidable,
-} from '../../../../gamex';
+} from 'gamex';
 
 import {SimulationConfigController} from '../simulation-config-controller';
 
