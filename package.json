@@ -1,6 +1,6 @@
 {
   "name": "dynamics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A dynamics simulation demo of the gamex game engine.",
   "license": "MIT",
   "repository": {
