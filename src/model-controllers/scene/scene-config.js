@@ -6,9 +6,9 @@ import {cameraConfig} from '../../config';
 
 const sceneConfig = {};
 
-// Keep this value correlated with cameraConfig.zFar.
+// Keep this value correlated with cameraConfig._zFar.
 sceneConfig.renderDistance = 4000;
-cameraConfig.zFar = sceneConfig.renderDistance;
+cameraConfig._zFar = sceneConfig.renderDistance;
 
 const sceneFolderConfig = {
   label: 'Scene',

@@ -1,11 +1,11 @@
 {
-  "name": "dynamics-example",
+  "name": "dynamics",
   "version": "0.1.0",
-  "description": "A dynamics simulation demo of [gamex][gamex]",
+  "description": "A dynamics simulation demo of the gamex game engine.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/levilindsey/dynamics-example"
+    "url": "http://github.com/levilindsey/dynamics"
   },
   "author": {
     "name": "Levi Lindsey",
@@ -13,7 +13,7 @@
     "url": "https://github.com/levilindsey"
   },
   "bugs": {
-    "url": "http://github.com/levilindsey/dynamics-example/issues"
+    "url": "http://github.com/levilindsey/dynamics/issues"
   },
   "dependencies": {
     "babel-core": "^6.26.3",

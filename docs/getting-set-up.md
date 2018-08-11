@@ -49,7 +49,7 @@ npm install -g phantomjs
 ### Clone this project repository to your local machine
 
 ```bash
-git clone https://github.com/levilindsey/dynamics-example
+git clone https://github.com/levilindsey/dynamics
 ```
 
 ### Use NPM to install all local project dependencies

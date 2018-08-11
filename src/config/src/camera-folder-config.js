@@ -4,6 +4,7 @@ import {
   followCameraConfig,
   cameraConfigUpdaters
 } from './camera-config';
+import {firstPersonCameraFolderConfig} from "../../../../space-debris/src/config/src/camera-folder-config";
 
 /**
  * This module configures the camera dat.GUI menu folder.

@@ -16095,10 +16095,18 @@ var cameraConfig = {}; /**
 
 // TODO: Tie this into the folder-config system.
 
-cameraConfig.fovY = (0, _gamex.degToRad)(70.0);
-cameraConfig.zNear = 0.1;
-cameraConfig.zFar = 4000;
-cameraConfig.defaultAspectRatio = 16 / 9;
+cameraConfig.fovY = {
+  start: (0, _gamex.degToRad)(70.0),
+  min: 0.0,
+  max: 3.1415
+};
+cameraConfig.defaultAspectRatio = {
+  start: 16 / 9,
+  min: 0.01,
+  max: 8.0
+};
+cameraConfig._zNear = 0.1;
+cameraConfig._zFar = 4000;
 cameraConfig._defaultLookAtDirection = vec3.fromValues(0, 0, -1);
 
 var fixedCameraConfig = {};
@@ -16170,6 +16178,8 @@ exports.followCameraFolderConfig = exports.fixedCameraFolderConfig = exports.cam
 
 var _cameraConfig = require('./camera-config');
 
+var _cameraFolderConfig = require('../../../../space-debris/src/config/src/camera-folder-config');
+
 /**
  * This module configures the camera dat.GUI menu folder.
  */
@@ -16204,7 +16214,7 @@ exports.cameraFolderConfig = cameraFolderConfig;
 exports.fixedCameraFolderConfig = fixedCameraFolderConfig;
 exports.followCameraFolderConfig = followCameraFolderConfig;
 
-},{"./camera-config":99}],101:[function(require,module,exports){
+},{"../../../../space-debris/src/config/src/camera-folder-config":215,"./camera-config":99}],101:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16339,12 +16349,12 @@ physicsConfig.angularDragCoefficient = {
 };
 physicsConfig.coefficientOfRestitution = {
   start: 0.8,
-  min: 0.0,
+  min: 0.0001,
   max: 1.0
 };
 physicsConfig.coefficientOfFriction = {
   start: 0.03,
-  min: 0.0,
+  min: 0.0001,
   max: 1.0
 };
 physicsConfig.lowMomentumSuppressionThreshold = {
@@ -16684,9 +16694,9 @@ var _config = require('../../config');
 
 var sceneConfig = {};
 
-// Keep this value correlated with cameraConfig.zFar.
+// Keep this value correlated with cameraConfig._zFar.
 sceneConfig.renderDistance = 4000;
-_config.cameraConfig.zFar = sceneConfig.renderDistance;
+_config.cameraConfig._zFar = sceneConfig.renderDistance;
 
 var sceneFolderConfig = {
   label: 'Scene',
@@ -16831,7 +16841,15 @@ var SceneImpl = function (_GameScene) {
       _gamex.configController.createFolder(_config.boxFolderConfig);
       _gamex.configController.createFolder(_config.capsuleFolderConfig);
       _gamex.configController.createFolder(_config.sphereFolderConfig);
-      _gamex.configController.createFolder(_config.cameraFolderConfig);
+
+      var setCameraPerspective = function setCameraPerspective() {
+        return _this2._camera._setPerspective(_config.cameraConfig.fovY, _config.cameraConfig.defaultAspectRatio, _config.cameraConfig._zNear, _config.cameraConfig._zFar);
+      };
+      _gamex.configController.createFolder(_config.cameraFolderConfig, null, {
+        'fovY': setCameraPerspective,
+        'defaultAspectRatio': setCameraPerspective
+      });
+
       // TODO: Update this to support other types of cameras being selected.
       _gamex.configController.createFolder(_config.fixedCameraFolderConfig, null, {
         // These trigger an update within the camera.
@@ -17394,6 +17412,366 @@ Object.keys(_generalModelProgramConfig).forEach(function (key) {
   });
 });
 
-},{"./general-model-program/general-model-program-config":116}]},{},[107])
+},{"./general-model-program/general-model-program-config":116}],118:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./src":119,"dup":1}],119:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"./src/collidable-physics-model-controller":120,"./src/config-controller":121,"./src/game-controller":122,"./src/game-scene":123,"./src/input-controller":124,"./src/physics-model-controller":125,"./src/spring-follow-camera":126,"./wall":127,"dup":2,"grafx":130,"lsl-animatex":170,"lsl-physx":178}],120:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"./physics-model-controller":125,"dup":3,"lsl-physx":178}],121:[function(require,module,exports){
+arguments[4][4][0].apply(exports,arguments)
+},{"dup":4,"grafx":130}],122:[function(require,module,exports){
+arguments[4][5][0].apply(exports,arguments)
+},{"./config-controller":121,"./input-controller":124,"dup":5,"grafx":130,"lsl-animatex":170}],123:[function(require,module,exports){
+arguments[4][6][0].apply(exports,arguments)
+},{"dup":6,"grafx":130,"lsl-physx":178}],124:[function(require,module,exports){
+arguments[4][7][0].apply(exports,arguments)
+},{"dup":7,"grafx":130}],125:[function(require,module,exports){
+arguments[4][8][0].apply(exports,arguments)
+},{"dup":8,"grafx":130,"lsl-physx":178}],126:[function(require,module,exports){
+arguments[4][9][0].apply(exports,arguments)
+},{"dup":9,"grafx":130}],127:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"./src/wall-collidable":128,"./src/wall-controller":129,"dup":10}],128:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11,"lsl-physx":178}],129:[function(require,module,exports){
+arguments[4][12][0].apply(exports,arguments)
+},{"./wall-collidable":128,"dup":12,"grafx":130,"lsl-physx":178}],130:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./src":139,"dup":1}],131:[function(require,module,exports){
+arguments[4][14][0].apply(exports,arguments)
+},{"./src/camera":132,"./src/first-person-camera":133,"./src/fixed-camera":134,"./src/fixed-follow-camera":135,"./src/follow-camera":136,"./src/overhead-camera":137,"./src/third-person-camera":138,"dup":14}],132:[function(require,module,exports){
+arguments[4][15][0].apply(exports,arguments)
+},{"dup":15,"lsl-animatex":170}],133:[function(require,module,exports){
+arguments[4][16][0].apply(exports,arguments)
+},{"./camera":132,"dup":16}],134:[function(require,module,exports){
+arguments[4][17][0].apply(exports,arguments)
+},{"./camera":132,"dup":17}],135:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./follow-camera":136,"dup":18}],136:[function(require,module,exports){
+arguments[4][19][0].apply(exports,arguments)
+},{"./third-person-camera":138,"dup":19}],137:[function(require,module,exports){
+arguments[4][20][0].apply(exports,arguments)
+},{"./third-person-camera":138,"dup":20}],138:[function(require,module,exports){
+arguments[4][21][0].apply(exports,arguments)
+},{"./camera":132,"dup":21}],139:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"./cameras":131,"./models":140,"./program-wrapper":147,"./renderable-shapes":153,"./src/grafx-controller":162,"./src/light":163,"./src/scene":164,"./util":165,"dup":22}],140:[function(require,module,exports){
+arguments[4][23][0].apply(exports,arguments)
+},{"./src/default-model":141,"./src/invisible-model-controller":142,"./src/model":145,"./src/model-controller":143,"./src/model-group-controller":144,"./src/standard-model-controller":146,"dup":23}],141:[function(require,module,exports){
+arguments[4][24][0].apply(exports,arguments)
+},{"../../util":165,"./model":145,"dup":24}],142:[function(require,module,exports){
+arguments[4][25][0].apply(exports,arguments)
+},{"./model-controller":143,"dup":25}],143:[function(require,module,exports){
+arguments[4][26][0].apply(exports,arguments)
+},{"../../program-wrapper":147,"dup":26,"lsl-animatex":170}],144:[function(require,module,exports){
+arguments[4][27][0].apply(exports,arguments)
+},{"dup":27,"lsl-animatex":170}],145:[function(require,module,exports){
+arguments[4][28][0].apply(exports,arguments)
+},{"dup":28}],146:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"../../renderable-shapes":153,"./model-controller":143,"dup":29}],147:[function(require,module,exports){
+arguments[4][30][0].apply(exports,arguments)
+},{"./src/program-wrapper":150,"./src/program-wrapper-store":149,"./src/texture-store":151,"./src/uniform-setter":152,"dup":30}],148:[function(require,module,exports){
+arguments[4][31][0].apply(exports,arguments)
+},{"../../util":165,"./program-wrapper-store":149,"dup":31}],149:[function(require,module,exports){
+arguments[4][32][0].apply(exports,arguments)
+},{"../../util":165,"./group-program-wrapper":148,"./program-wrapper":150,"dup":32}],150:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"../../util":165,"./uniform-setter":152,"dup":33}],151:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"../../util":165,"dup":34}],152:[function(require,module,exports){
+arguments[4][35][0].apply(exports,arguments)
+},{"dup":35}],153:[function(require,module,exports){
+arguments[4][36][0].apply(exports,arguments)
+},{"./src/renderable-shape-factory":154,"./src/renderable-shape-store":155,"./src/shape-configs/capsule-renderable-shape":156,"./src/shape-configs/cube-renderable-shape":157,"./src/shape-configs/icosahedron-renderable-shape":158,"./src/shape-configs/icosphere-renderable-shape":159,"./src/shape-configs/lat-long-sphere-renderable-shape":160,"./src/shape-configs/tetrahedron-renderable-shape":161,"dup":36}],154:[function(require,module,exports){
+arguments[4][37][0].apply(exports,arguments)
+},{"../../models":140,"./renderable-shape-store":155,"dup":37}],155:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38}],156:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"../../../util":165,"../renderable-shape-store":155,"dup":39}],157:[function(require,module,exports){
+arguments[4][40][0].apply(exports,arguments)
+},{"../renderable-shape-store":155,"dup":40}],158:[function(require,module,exports){
+arguments[4][41][0].apply(exports,arguments)
+},{"../../../util":165,"../renderable-shape-store":155,"dup":41}],159:[function(require,module,exports){
+arguments[4][42][0].apply(exports,arguments)
+},{"../../../util":165,"../renderable-shape-factory":154,"../renderable-shape-store":155,"dup":42}],160:[function(require,module,exports){
+arguments[4][43][0].apply(exports,arguments)
+},{"../../../util":165,"../renderable-shape-store":155,"dup":43}],161:[function(require,module,exports){
+arguments[4][44][0].apply(exports,arguments)
+},{"../../../util":165,"../renderable-shape-store":155,"dup":44}],162:[function(require,module,exports){
+arguments[4][45][0].apply(exports,arguments)
+},{"../program-wrapper":147,"../util":165,"dup":45,"lsl-animatex":170,"lsl-physx":178}],163:[function(require,module,exports){
+arguments[4][46][0].apply(exports,arguments)
+},{"dup":46}],164:[function(require,module,exports){
+arguments[4][47][0].apply(exports,arguments)
+},{"../models":140,"dup":47}],165:[function(require,module,exports){
+arguments[4][48][0].apply(exports,arguments)
+},{"./src/geometry":166,"./src/gl-util":167,"./src/hash-map":168,"./src/util":169,"dup":48}],166:[function(require,module,exports){
+arguments[4][49][0].apply(exports,arguments)
+},{"./util":169,"dup":49}],167:[function(require,module,exports){
+arguments[4][50][0].apply(exports,arguments)
+},{"../../program-wrapper/src/program-wrapper-store":149,"./geometry":166,"./hash-map":168,"./util":169,"dup":50}],168:[function(require,module,exports){
+arguments[4][51][0].apply(exports,arguments)
+},{"dup":51}],169:[function(require,module,exports){
+arguments[4][52][0].apply(exports,arguments)
+},{"dup":52}],170:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./src":174,"dup":1}],171:[function(require,module,exports){
+arguments[4][54][0].apply(exports,arguments)
+},{"dup":54}],172:[function(require,module,exports){
+arguments[4][55][0].apply(exports,arguments)
+},{"./frame-latency-profiler":173,"./persistent-animation-job":175,"./transient-animation-job":176,"dup":55}],173:[function(require,module,exports){
+arguments[4][56][0].apply(exports,arguments)
+},{"dup":56}],174:[function(require,module,exports){
+arguments[4][57][0].apply(exports,arguments)
+},{"./animation-job":171,"./animator":172,"./frame-latency-profiler":173,"./persistent-animation-job":175,"./transient-animation-job":176,"dup":57}],175:[function(require,module,exports){
+arguments[4][58][0].apply(exports,arguments)
+},{"./animation-job":171,"dup":58}],176:[function(require,module,exports){
+arguments[4][59][0].apply(exports,arguments)
+},{"./animation-job":171,"./util":177,"dup":59}],177:[function(require,module,exports){
+arguments[4][60][0].apply(exports,arguments)
+},{"dup":60}],178:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./src":202,"dup":1}],179:[function(require,module,exports){
+arguments[4][62][0].apply(exports,arguments)
+},{"./src/aabb-collidable":180,"./src/capsule-collidable":181,"./src/collidable":182,"./src/line-segment":183,"./src/obb-collidable":184,"./src/sphere-collidable":185,"dup":62}],180:[function(require,module,exports){
+arguments[4][63][0].apply(exports,arguments)
+},{"../../../util":209,"./collidable":182,"./line-segment":183,"dup":63}],181:[function(require,module,exports){
+arguments[4][64][0].apply(exports,arguments)
+},{"./collidable":182,"./line-segment":183,"dup":64}],182:[function(require,module,exports){
+arguments[4][65][0].apply(exports,arguments)
+},{"dup":65}],183:[function(require,module,exports){
+arguments[4][66][0].apply(exports,arguments)
+},{"../../../util":209,"dup":66}],184:[function(require,module,exports){
+arguments[4][67][0].apply(exports,arguments)
+},{"./collidable":182,"./line-segment":183,"./sphere-collidable":185,"dup":67}],185:[function(require,module,exports){
+arguments[4][68][0].apply(exports,arguments)
+},{"./collidable":182,"dup":68}],186:[function(require,module,exports){
+arguments[4][69][0].apply(exports,arguments)
+},{"./src/aabb-collision-detection":187,"./src/capsule-collision-detection":188,"./src/obb-collision-detection":189,"./src/sphere-collision-detection":190,"dup":69}],187:[function(require,module,exports){
+arguments[4][70][0].apply(exports,arguments)
+},{"../../../util":209,"./capsule-collision-detection":188,"./obb-collision-detection":189,"./sphere-collision-detection":190,"dup":70}],188:[function(require,module,exports){
+arguments[4][71][0].apply(exports,arguments)
+},{"../../../util":209,"./obb-collision-detection":189,"dup":71}],189:[function(require,module,exports){
+arguments[4][72][0].apply(exports,arguments)
+},{"../../../util":209,"./aabb-collision-detection":187,"./capsule-collision-detection":188,"dup":72}],190:[function(require,module,exports){
+arguments[4][73][0].apply(exports,arguments)
+},{"../../../util":209,"./capsule-collision-detection":188,"./obb-collision-detection":189,"dup":73}],191:[function(require,module,exports){
+arguments[4][74][0].apply(exports,arguments)
+},{"./src/aabb-contact-calculation":192,"./src/capsule-contact-calculation":193,"./src/obb-contact-calculation":194,"./src/sphere-contact-calculation":195,"dup":74}],192:[function(require,module,exports){
+arguments[4][75][0].apply(exports,arguments)
+},{"../../../util":209,"../../collision-detection":186,"./capsule-contact-calculation":193,"./obb-contact-calculation":194,"./sphere-contact-calculation":195,"dup":75}],193:[function(require,module,exports){
+arguments[4][76][0].apply(exports,arguments)
+},{"../../../util":209,"./obb-contact-calculation":194,"dup":76}],194:[function(require,module,exports){
+arguments[4][77][0].apply(exports,arguments)
+},{"../../../util":209,"../../collidables":179,"../../collision-detection":186,"./aabb-contact-calculation":192,"dup":77}],195:[function(require,module,exports){
+arguments[4][78][0].apply(exports,arguments)
+},{"../../../util":209,"./aabb-contact-calculation":192,"./capsule-contact-calculation":193,"./obb-contact-calculation":194,"dup":78}],196:[function(require,module,exports){
+arguments[4][79][0].apply(exports,arguments)
+},{"./collidables":179,"./collision-detection":186,"./contact-calculation":191,"./src/collidable-factories":197,"./src/collidable-physics-job":198,"./src/collidable-store":199,"./src/collision-handler":200,"./src/collision-utils":201,"dup":79}],197:[function(require,module,exports){
+arguments[4][80][0].apply(exports,arguments)
+},{"../../util":209,"../collidables":179,"dup":80}],198:[function(require,module,exports){
+arguments[4][81][0].apply(exports,arguments)
+},{"../../src/physics-job":207,"../../util":209,"./collidable-factories":197,"./collidable-store":199,"dup":81}],199:[function(require,module,exports){
+arguments[4][82][0].apply(exports,arguments)
+},{"./collision-utils":201,"dup":82}],200:[function(require,module,exports){
+arguments[4][83][0].apply(exports,arguments)
+},{"../../util":209,"./collidable-store":199,"./collision-utils":201,"dup":83}],201:[function(require,module,exports){
+arguments[4][84][0].apply(exports,arguments)
+},{"../collidables":179,"../collision-detection":186,"../contact-calculation":191,"dup":84}],202:[function(require,module,exports){
+arguments[4][85][0].apply(exports,arguments)
+},{"./collisions":196,"./integrator":203,"./src/physics-engine":206,"./src/physics-job":207,"./src/physics-state":208,"./util":209,"dup":85}],203:[function(require,module,exports){
+arguments[4][86][0].apply(exports,arguments)
+},{"./src/integrator":204,"./src/rk4-integrator":205,"dup":86}],204:[function(require,module,exports){
+arguments[4][87][0].apply(exports,arguments)
+},{"dup":87}],205:[function(require,module,exports){
+arguments[4][88][0].apply(exports,arguments)
+},{"../../src/physics-state":208,"../../util":209,"./integrator":204,"dup":88}],206:[function(require,module,exports){
+arguments[4][89][0].apply(exports,arguments)
+},{"../collisions":196,"../integrator":203,"../util":209,"./physics-state":208,"dup":89,"lsl-animatex":170}],207:[function(require,module,exports){
+arguments[4][90][0].apply(exports,arguments)
+},{"../util":209,"./physics-engine":206,"./physics-state":208,"dup":90,"lsl-animatex":170}],208:[function(require,module,exports){
+arguments[4][91][0].apply(exports,arguments)
+},{"../util":209,"dup":91}],209:[function(require,module,exports){
+arguments[4][92][0].apply(exports,arguments)
+},{"./src/force-utils":210,"./src/geometry":211,"./src/inertia-tensor-utils":212,"./src/util":213,"dup":92}],210:[function(require,module,exports){
+arguments[4][93][0].apply(exports,arguments)
+},{"dup":93}],211:[function(require,module,exports){
+arguments[4][94][0].apply(exports,arguments)
+},{"dup":94}],212:[function(require,module,exports){
+arguments[4][95][0].apply(exports,arguments)
+},{"./geometry":211,"dup":95}],213:[function(require,module,exports){
+arguments[4][96][0].apply(exports,arguments)
+},{"dup":96}],214:[function(require,module,exports){
+'use strict';
 
-//# sourceMappingURL=dynamics-example.js.map
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.cameraTypeMap = exports.cameraConfigUpdaters = exports.followCameraConfig = exports.firstPersonCameraConfig = exports.fixedCameraConfig = exports.cameraConfig = undefined;
+
+var _gamex = require('gamex');
+
+var cameraConfig = {}; /**
+                        * This module handles configuration parameters relating to the camera. This uses the dat.GUI
+                        * package.
+                        */
+
+// TODO: Tie this into the folder-config system.
+
+cameraConfig.fovY = {
+  start: (0, _gamex.degToRad)(70.0),
+  min: 0.0,
+  max: 3.1415
+};
+cameraConfig.defaultAspectRatio = {
+  start: 16 / 9,
+  min: 0.01,
+  max: 8.0
+};
+cameraConfig._zNear = 0.1;
+cameraConfig._zFar = 4000;
+cameraConfig._defaultLookAtDirection = vec3.fromValues(0, 0, -1);
+cameraConfig.cameraType = {
+  start: 'thirdPersonSpring',
+  options: ['firstPerson', 'thirdPersonSpring', 'thirdPersonFixed', 'fixed']
+};
+
+var cameraTypeMap = {
+  'firstPerson': _gamex.FirstPersonCamera,
+  'thirdPersonFixed': _gamex.FixedFollowCamera,
+  'thirdPersonSpring': _gamex.SpringFollowCamera,
+  'fixed': _gamex.FixedCamera
+};
+
+var fixedCameraConfig = {};
+
+fixedCameraConfig.position = {
+  start: vec3.fromValues(0, -40, 5),
+  min: vec3.fromValues(-200, -200, -200),
+  max: vec3.fromValues(200, 200, 200)
+};
+fixedCameraConfig.viewDirection = {
+  start: vec3.fromValues(0, 1, -.5),
+  min: vec3.fromValues(-1, -1, -1),
+  max: vec3.fromValues(1, 1, 1)
+};
+fixedCameraConfig._up = vec3.fromValues(0, 0, 1);
+
+var firstPersonCameraConfig = {};
+
+firstPersonCameraConfig.intendedDisplacementFromTarget = vec3.fromValues(0, 0.3, -0.8);
+firstPersonCameraConfig.viewDirection = vec3.fromValues(0, 0, -1);
+firstPersonCameraConfig.targetDistance = 10;
+
+var followCameraConfig = {};
+
+followCameraConfig.springCoefficient = 0.0004;
+followCameraConfig.dampingCoefficient = 0.04;
+
+followCameraConfig.intendedDistanceFromTarget = {
+  start: 5,
+  min: 0,
+  max: 100
+};
+followCameraConfig.intendedRotationAngleFromTarget = {
+  start: -Math.PI * .075,
+  min: 0,
+  max: 2 * Math.PI
+};
+followCameraConfig.intendedRotationAxisFromTarget = vec3.fromValues(1, 0, 0);
+followCameraConfig._intendedTranslationFromTarget = vec3.create();
+
+function updateIntendedTranslationFromTarget() {
+  var transformation = mat4.create();
+  mat4.rotate(transformation, transformation, followCameraConfig.intendedRotationAngleFromTarget, followCameraConfig.intendedRotationAxisFromTarget);
+  mat4.translate(transformation, transformation, vec3.fromValues(0, 0, followCameraConfig.intendedDistanceFromTarget));
+  vec3.transformMat4(followCameraConfig._intendedTranslationFromTarget, followCameraConfig._intendedTranslationFromTarget, transformation);
+}
+
+var normalizeFirstPersonViewDirection = function normalizeFirstPersonViewDirection() {
+  return vec3.normalize(firstPersonCameraConfig.viewDirection, firstPersonCameraConfig.viewDirection);
+};
+var normalizeFixedViewDirection = function normalizeFixedViewDirection() {
+  return vec3.normalize(fixedCameraConfig.viewDirection, fixedCameraConfig.viewDirection);
+};
+var normalizeDefaultLookAtDirection = function normalizeDefaultLookAtDirection() {
+  return vec3.normalize(cameraConfig._defaultLookAtDirection, cameraConfig._defaultLookAtDirection);
+};
+
+var cameraConfigUpdaters = {
+  updateIntendedTranslationFromTarget: updateIntendedTranslationFromTarget,
+  normalizeFirstPersonViewDirection: normalizeFirstPersonViewDirection,
+  normalizeFixedViewDirection: normalizeFixedViewDirection,
+  normalizeDefaultLookAtDirection: normalizeDefaultLookAtDirection
+};
+
+normalizeDefaultLookAtDirection();
+
+exports.cameraConfig = cameraConfig;
+exports.fixedCameraConfig = fixedCameraConfig;
+exports.firstPersonCameraConfig = firstPersonCameraConfig;
+exports.followCameraConfig = followCameraConfig;
+exports.cameraConfigUpdaters = cameraConfigUpdaters;
+exports.cameraTypeMap = cameraTypeMap;
+
+},{"gamex":118}],215:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.followCameraFolderConfig = exports.fixedCameraFolderConfig = exports.firstPersonCameraFolderConfig = exports.cameraFolderConfig = undefined;
+
+var _cameraConfig = require('./camera-config');
+
+/**
+ * This module configures the camera dat.GUI menu folder.
+ */
+
+var firstPersonCameraFolderConfig = {
+  label: 'First-person camera',
+  config: _cameraConfig.firstPersonCameraConfig,
+  isOpen: false,
+  onChangeListeners: {
+    'viewDirection': _cameraConfig.cameraConfigUpdaters.normalizeFirstPersonViewDirection
+  }
+};
+
+var fixedCameraFolderConfig = {
+  label: 'Fixed camera',
+  config: _cameraConfig.fixedCameraConfig,
+  isOpen: false,
+  onChangeListeners: {
+    'viewDirection': _cameraConfig.cameraConfigUpdaters.normalizeFixedViewDirection
+  }
+};
+
+var followCameraFolderConfig = {
+  label: 'Follow camera',
+  config: _cameraConfig.followCameraConfig,
+  isOpen: false,
+  onChangeListeners: {
+    'intendedDistanceFromTarget': _cameraConfig.cameraConfigUpdaters.updateIntendedTranslationFromTarget,
+    'intendedRotationAngleFromTarget': _cameraConfig.cameraConfigUpdaters.updateIntendedTranslationFromTarget,
+    'intendedRotationAxisFromTarget': _cameraConfig.cameraConfigUpdaters.updateIntendedTranslationFromTarget
+  }
+};
+
+var cameraFolderConfig = {
+  label: 'Camera',
+  config: _cameraConfig.cameraConfig,
+  isOpen: false,
+  childFolders: [followCameraFolderConfig, firstPersonCameraFolderConfig, fixedCameraFolderConfig]
+};
+
+exports.cameraFolderConfig = cameraFolderConfig;
+exports.firstPersonCameraFolderConfig = firstPersonCameraFolderConfig;
+exports.fixedCameraFolderConfig = fixedCameraFolderConfig;
+exports.followCameraFolderConfig = followCameraFolderConfig;
+
+},{"./camera-config":214}]},{},[107])
+
+//# sourceMappingURL=dynamics.js.map

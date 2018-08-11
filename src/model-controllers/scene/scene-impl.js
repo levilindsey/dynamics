@@ -99,7 +99,15 @@ class SceneImpl extends GameScene {
     configController.createFolder(boxFolderConfig);
     configController.createFolder(capsuleFolderConfig);
     configController.createFolder(sphereFolderConfig);
-    configController.createFolder(cameraFolderConfig);
+
+    const setCameraPerspective =
+        () => this._camera._setPerspective(cameraConfig.fovY, cameraConfig.defaultAspectRatio,
+            cameraConfig._zNear, cameraConfig._zFar);
+    configController.createFolder(cameraFolderConfig, null, {
+      'fovY': setCameraPerspective,
+      'defaultAspectRatio': setCameraPerspective
+    });
+
     // TODO: Update this to support other types of cameras being selected.
     configController.createFolder(fixedCameraFolderConfig, null, {
       // These trigger an update within the camera.
