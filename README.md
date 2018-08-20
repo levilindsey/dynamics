@@ -1,6 +1,6 @@
 # dynamics
 
-#### A dynamics simulation demo of [gamex][gamex].
+#### A rigid-body dynamics simulation demo of [gamex][gamex].
 
 _See this running at [levi.codes/dynamics][demo]!_
 
@@ -9,7 +9,7 @@ the underlying [physx][physx] physics engine.
 
 ## Notable Features
 
-- Includes [collision detection][collision-detection] with [impulse-based 
+- Includes continuous [collision detection][collision-detection] with [impulse-based 
   resolution][collision-resolution].
 - [Decouples the physics simulation and animation rendering time steps][stable-time-steps], and uses
   a fixed timestep for the physics loop. This provides numerical stability and precise
