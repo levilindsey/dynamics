@@ -2,7 +2,7 @@
 
 #### A rigid-body dynamics simulation demo of [gamex][gamex].
 
-_See this running at [levi.codes/dynamics][demo]!_
+_See this running at [levi.dev/dynamics][demo]!_
 
 This application demonstrates many of the features of the [gamex][gamex] game engine, and notably
 the underlying [physx][physx] physics engine.
